@@ -1,8 +1,7 @@
+import { CardWall } from '../components/card-wall'
 import { Divider } from '../components/divider'
 import { SearchNotesForm } from '../components/forms/search-notes-form'
 import { Logo } from '../components/logo'
-import { NewNoteCard } from '../components/new-note-card'
-import { NoteCard } from '../components/note-card'
 
 function App() {
   return (
@@ -13,11 +12,7 @@ function App() {
 
       <Divider />
 
-      <div className="grid auto-rows-[250px] grid-cols-3 gap-6">
-        <NewNoteCard />
-
-        <NoteCard />
-      </div>
+      <CardWall />
     </main>
   )
 }
