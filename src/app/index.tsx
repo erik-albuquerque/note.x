@@ -1,4 +1,5 @@
 import logo from '../assets/logo.svg'
+import { Divider } from '../components/divider'
 import { NewNoteCard } from '../components/new-note-card'
 import { NoteCard } from '../components/note-card'
 
@@ -15,7 +16,7 @@ function App() {
         />
       </form>
 
-      <div className="h-px bg-zinc-800" />
+      <Divider />
 
       <div className="grid auto-rows-[250px] grid-cols-3 gap-6">
         <NewNoteCard />
