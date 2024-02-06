@@ -1,4 +1,5 @@
 import logo from '../assets/logo.svg'
+import { NewNoteCard } from '../components/new-note-card'
 
 function App() {
   return (
@@ -16,15 +17,7 @@ function App() {
       <div className="h-px bg-zinc-800" />
 
       <div className="grid auto-rows-[250px] grid-cols-3 gap-6">
-        <div className="space-y-3 rounded-md border border-zinc-700 bg-zinc-900 p-5">
-          <span className="text-sm font-medium text-zinc-200">
-            Adicionar nota
-          </span>
-          <p className="text-sm leading-6 text-zinc-400">
-            Grave uma nota em áudio que será convertida para texto
-            automaticamente.
-          </p>
-        </div>
+        <NewNoteCard />
 
         <div className="relative space-y-3 overflow-hidden rounded-md bg-zinc-800 p-5">
           <span className="text-sm font-medium text-zinc-300">há 2 dias</span>
