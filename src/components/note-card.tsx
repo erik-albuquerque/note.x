@@ -1,6 +1,6 @@
 const NoteCard: React.FC = () => {
   return (
-    <div className="relative space-y-3 overflow-hidden rounded-md bg-zinc-800 p-5">
+    <div className="relative space-y-3 overflow-hidden rounded-md bg-zinc-800 p-5 transition-all hover:ring-2 hover:ring-zinc-700">
       <span className="text-sm font-medium text-zinc-300">há 2 dias</span>
       <p className="text-sm leading-6 text-zinc-400">
         O Drizzle possui um plugin do ESLint para evitar que realizemos updates
