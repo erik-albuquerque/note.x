@@ -15,7 +15,7 @@ const PreviewNoteCardDialog: React.FC<PreviewNoteCardDialogProps> = ({
 }: PreviewNoteCardDialogProps) => {
   return (
     <Dialog.Root>
-      <Dialog.Trigger asChild>{children}</Dialog.Trigger>
+      <Dialog.Trigger>{children}</Dialog.Trigger>
 
       <Dialog.Content className="fixed left-1/2 top-1/2 flex h-[60vh] w-full max-w-[600px] -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden rounded-md bg-zinc-800 outline-none">
         <div className="flex flex-1 flex-col gap-3 p-5">
