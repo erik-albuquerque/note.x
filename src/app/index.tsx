@@ -1,12 +1,12 @@
-import logo from '../assets/logo.svg'
 import { Divider } from '../components/divider'
+import { Logo } from '../components/logo'
 import { NewNoteCard } from '../components/new-note-card'
 import { NoteCard } from '../components/note-card'
 
 function App() {
   return (
     <main className="mx-auto max-w-6xl space-y-6 py-12">
-      <img src={logo} alt="Notes" />
+      <Logo />
 
       <form className="w-full">
         <input
