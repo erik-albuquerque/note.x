@@ -1,4 +1,5 @@
 import { Divider } from '../components/divider'
+import { SearchNotesForm } from '../components/forms/search-notes-form'
 import { Logo } from '../components/logo'
 import { NewNoteCard } from '../components/new-note-card'
 import { NoteCard } from '../components/note-card'
@@ -8,13 +9,7 @@ function App() {
     <main className="mx-auto max-w-6xl space-y-6 py-12">
       <Logo />
 
-      <form className="w-full">
-        <input
-          type="text"
-          placeholder="Busque em suas notas..."
-          className="w-full bg-transparent text-3xl font-semibold tracking-tight outline-none placeholder:text-zinc-500"
-        />
-      </form>
+      <SearchNotesForm />
 
       <Divider />
 
