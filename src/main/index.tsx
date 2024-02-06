@@ -1,5 +1,12 @@
+import { Toaster } from 'sonner'
+
 import { App } from '../app'
 import { RenderRoot } from './render-root.tsx'
 import './main.css'
 
-RenderRoot(<App />)
+RenderRoot(
+  <>
+    <App />
+    <Toaster richColors />
+  </>
+)
