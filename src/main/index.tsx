@@ -1,4 +1,4 @@
-import { App } from "../app";
-import { RenderRoot } from "./render-root.tsx";
+import { App } from '../app'
+import { RenderRoot } from './render-root.tsx'
 
-RenderRoot(<App />);
+RenderRoot(<App />)
