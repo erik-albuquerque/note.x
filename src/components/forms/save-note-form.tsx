@@ -1,7 +1,11 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
 import { toast } from 'sonner'
 
+import { useNotesStore } from '../../store/use-notes-store'
+
 const SaveNoteForm: React.FC = () => {
+  const { onSaveNote } = useNotesStore()
+
   const [shouldShowOnboarding, setShouldShowOnboarding] = useState(true)
   const [content, setContent] = useState('')
 
@@ -21,6 +25,9 @@ const SaveNoteForm: React.FC = () => {
 
   const handleSaveNote = (event: FormEvent) => {
     event.preventDefault()
+    onSaveNote(content)
+    setContent('')
+    setShouldShowOnboarding(true)
     toast.success('Nota criada com sucesso!')
   }
 
