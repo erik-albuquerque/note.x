@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-import { Notes } from '../types/note'
+import { Note, Notes } from '../types/note'
 import { generateUuid } from '../utils/generate-uuid'
 
 type NotesState = {
@@ -9,11 +9,23 @@ type NotesState = {
 }
 
 const useNotesStore = create<NotesState>((set) => ({
-  notes: [],
+  notes: JSON.parse(localStorage.getItem('notes')!) ?? [],
   onSaveNote: (content) =>
-    set((state) => ({
-      notes: [{ id: generateUuid(), date: new Date(), content }, ...state.notes]
-    }))
+    set((state) => {
+      const note: Note = {
+        id: generateUuid(),
+        date: new Date(),
+        content
+      }
+
+      const notes: Notes = [note, ...state.notes]
+
+      localStorage.setItem('notes', JSON.stringify(notes))
+
+      return {
+        notes
+      }
+    })
 }))
 
 export { useNotesStore }
