@@ -13,7 +13,7 @@ const NoteCard = React.forwardRef<HTMLButtonElement, NoteCardProps>(
   ({ note, ...props }, ref) => {
     return (
       <button
-        className="relative flex flex-col gap-3 overflow-hidden rounded-md bg-zinc-800 p-5 text-left outline-none transition-all hover:ring-2 hover:ring-zinc-700 focus-visible:ring-2 focus-visible:ring-violet-400"
+        className="relative flex flex-col gap-3 overflow-hidden rounded-md bg-zinc-800 p-5 text-left outline-none transition-all hover:ring-2 hover:ring-zinc-700 focus-visible:ring-2 focus-visible:ring-violet-300"
         ref={ref}
         {...props}
       >
