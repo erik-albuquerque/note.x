@@ -1,12 +1,10 @@
 import React from 'react'
 
+import { Note } from '../types/note'
 import { formatDistanceToNow } from '../utils/format-distance-to-now'
 
 type NoteCardProps = {
-  note: {
-    date: Date
-    content: string
-  }
+  note: Note
 }
 
 const NoteCard = React.forwardRef<HTMLButtonElement, NoteCardProps>(

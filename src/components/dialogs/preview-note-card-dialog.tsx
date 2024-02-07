@@ -1,12 +1,10 @@
+import { Note } from '../../types/note'
 import { formatDistanceToNow } from '../../utils/format-distance-to-now'
 import { Dialog } from './dialog'
 
 type PreviewNoteCardDialogProps = {
   children: React.ReactNode
-  note: {
-    date: Date
-    content: string
-  }
+  note: Note
 }
 
 const PreviewNoteCardDialog: React.FC<PreviewNoteCardDialogProps> = ({
