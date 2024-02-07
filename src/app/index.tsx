@@ -5,14 +5,18 @@ import { Logo } from '../components/logo'
 
 function App() {
   return (
-    <main className="mx-auto max-w-6xl space-y-6 py-12">
-      <Logo />
+    <main className="mx-auto max-w-5xl">
+      <header className="w-full py-4">
+        <Logo />
+      </header>
 
-      <SearchNotesForm />
+      <div className="space-y-6 py-12">
+        <SearchNotesForm />
 
-      <Divider />
+        <Divider />
 
-      <CardWall />
+        <CardWall />
+      </div>
     </main>
   )
 }
