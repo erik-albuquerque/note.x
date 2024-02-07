@@ -5,7 +5,7 @@ import { Logo } from '../components/logo'
 
 function App() {
   return (
-    <main className="mx-auto max-w-5xl">
+    <main className="mx-auto min-h-screen max-w-5xl">
       <header className="w-full py-4">
         <Logo />
       </header>
