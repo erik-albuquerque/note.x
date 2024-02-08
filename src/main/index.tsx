@@ -7,6 +7,6 @@ import './main.css'
 RenderRoot(
   <>
     <App />
-    <Toaster richColors />
+    <Toaster richColors theme="dark" />
   </>
 )
