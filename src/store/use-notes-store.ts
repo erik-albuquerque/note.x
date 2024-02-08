@@ -6,6 +6,7 @@ import { generateUuid } from '../utils/generate-uuid'
 type NotesState = {
   notes: Notes
   onSaveNote: (content: string) => void
+  onSearchNotes: (query: string) => void
 }
 
 const useNotesStore = create<NotesState>((set) => ({
@@ -24,6 +25,21 @@ const useNotesStore = create<NotesState>((set) => ({
 
       return {
         notes
+      }
+    }),
+  onSearchNotes: (query) =>
+    set((state) => {
+      const filteredNotes =
+        query !== ''
+          ? state.notes.filter((note) =>
+              note.content
+                .toLocaleLowerCase()
+                .includes(query.toLocaleLowerCase())
+            )
+          : JSON.parse(localStorage.getItem('notes')!) ?? []
+
+      return {
+        notes: filteredNotes
       }
     })
 }))
