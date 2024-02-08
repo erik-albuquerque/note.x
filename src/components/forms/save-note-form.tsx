@@ -25,6 +25,9 @@ const SaveNoteForm: React.FC = () => {
 
   const handleSaveNote = (event: FormEvent) => {
     event.preventDefault()
+
+    if (content === '') return
+
     onSaveNote(content)
     setContent('')
     setShouldShowOnboarding(true)
