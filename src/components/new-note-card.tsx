@@ -8,8 +8,10 @@ const NewNoteCard = React.forwardRef<HTMLButtonElement>(({ ...props }, ref) => {
       ref={ref}
       {...props}
     >
-      <span className="text-sm font-medium text-zinc-200">Adicionar nota</span>
-      <p className="text-sm leading-6 text-zinc-400">
+      <span className="text-base font-medium text-zinc-200 md:text-sm">
+        Adicionar nota
+      </span>
+      <p className="text-base leading-6 text-zinc-400 md:text-sm">
         Grave uma nota em áudio que será convertida para texto automaticamente.
       </p>
 

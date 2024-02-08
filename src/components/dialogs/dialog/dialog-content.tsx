@@ -10,7 +10,7 @@ const DialogContent: React.FC<DialogContentProps> = ({
     <Dialog.Portal>
       <Dialog.Overlay className="fixed inset-0 bg-black/50" />
       <Dialog.Content
-        className="fixed left-1/2 top-1/2 flex h-[60vh] w-full max-w-[600px] -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden rounded-md bg-zinc-800 outline-none"
+        className="fixed inset-0 flex w-full flex-col overflow-hidden bg-zinc-800 outline-none md:inset-auto md:left-1/2 md:top-1/2 md:h-[60vh] md:max-w-[600px] md:-translate-x-1/2 md:-translate-y-1/2 md:rounded-md"
         {...rest}
       >
         <Dialog.Close className="absolute right-0 top-0 bg-zinc-900 p-1.5 text-zinc-500 hover:text-zinc-300">

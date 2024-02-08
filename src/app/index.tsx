@@ -6,11 +6,11 @@ import { Logo } from '../components/logo'
 function App() {
   return (
     <main className="mx-auto min-h-screen max-w-5xl">
-      <header className="w-full py-4">
+      <header className="w-full px-5 py-4 xl:px-0">
         <Logo />
       </header>
 
-      <div className="space-y-6 py-12">
+      <div className="space-y-6 px-5 py-12 xl:px-0">
         <SearchNotesForm />
 
         <Divider />

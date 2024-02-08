@@ -15,10 +15,12 @@ const NoteCard = React.forwardRef<HTMLButtonElement, NoteCardProps>(
         ref={ref}
         {...props}
       >
-        <span className="text-sm font-medium text-zinc-300">
+        <span className="text-base font-medium text-zinc-300 md:text-sm">
           {formatDistanceToNow(note.date)}
         </span>
-        <p className="text-sm leading-6 text-zinc-400">{note.content}</p>
+        <p className="text-base leading-6 text-zinc-400 md:text-sm">
+          {note.content}
+        </p>
 
         <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-black/50 to-black/0" />
       </button>

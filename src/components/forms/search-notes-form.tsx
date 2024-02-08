@@ -19,7 +19,7 @@ const SearchNotesForm: React.FC = () => {
       <input
         type="text"
         placeholder="Busque em suas notas..."
-        className="w-full bg-transparent text-3xl font-semibold tracking-tight outline-none placeholder:text-zinc-500"
+        className="w-full bg-transparent text-2xl font-semibold tracking-tight outline-none placeholder:text-zinc-500 md:text-3xl"
         value={search}
         onChange={handleSearch}
       />
