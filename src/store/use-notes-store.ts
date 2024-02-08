@@ -6,6 +6,7 @@ import { generateUuid } from '../utils/generate-uuid'
 type NotesState = {
   notes: Notes
   onSaveNote: (content: string) => void
+  onDeleteNote: (id: string) => void
   onSearchNotes: (query: string) => void
 }
 
@@ -40,6 +41,16 @@ const useNotesStore = create<NotesState>((set) => ({
 
       return {
         notes: filteredNotes
+      }
+    }),
+  onDeleteNote: (id) =>
+    set((state) => {
+      const newNotes = state.notes.filter((note) => note.id !== id)
+
+      localStorage.setItem('notes', JSON.stringify(newNotes))
+
+      return {
+        notes: newNotes
       }
     })
 }))

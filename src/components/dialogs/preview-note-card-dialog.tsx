@@ -1,3 +1,4 @@
+import { useNotesStore } from '../../store/use-notes-store'
 import { Note } from '../../types/note'
 import { formatDistanceToNow } from '../../utils/format-distance-to-now'
 import { Dialog } from './dialog'
@@ -11,6 +12,8 @@ const PreviewNoteCardDialog: React.FC<PreviewNoteCardDialogProps> = ({
   note,
   children
 }: PreviewNoteCardDialogProps) => {
+  const { onDeleteNote } = useNotesStore()
+
   return (
     <Dialog.Root>
       <Dialog.Trigger>{children}</Dialog.Trigger>
@@ -27,6 +30,7 @@ const PreviewNoteCardDialog: React.FC<PreviewNoteCardDialogProps> = ({
 
         <button
           type="button"
+          onClick={() => onDeleteNote(note.id)}
           className="group w-full bg-zinc-900 py-4 text-center text-base font-medium text-zinc-300 outline-none md:text-sm"
         >
           Deseja{' '}
