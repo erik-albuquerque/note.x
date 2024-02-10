@@ -15,7 +15,16 @@ function App() {
 
         <Divider />
 
-        <CardWall />
+        <div className="flex flex-col gap-8">
+          {/* TODO: Hide create new note button
+            Show: when query search is empty or when searching notes.
+          */}
+          <NewNoteCardDialog>
+            <NewNoteCard />
+          </NewNoteCardDialog>
+
+          <CardWall />
+        </div>
       </div>
     </main>
   )
