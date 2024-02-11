@@ -1,22 +1,46 @@
 import { ArrowUpRight } from 'lucide-react'
 import React from 'react'
 
+import { cn } from '../utils/cn'
+
 const NewNoteCard = React.forwardRef<HTMLButtonElement>(({ ...props }, ref) => {
   return (
     <button
-      className="group relative flex flex-col gap-3 overflow-hidden rounded-md bg-zinc-900 p-5 text-left outline-none ring-2 ring-zinc-800 transition-all hover:bg-zinc-800/50 focus-visible:ring-violet-300"
+      className={cn(
+        'flex h-full max-w-60 flex-col gap-3',
+        'text-left',
+        'bg-muted p-4 outline-none',
+        'group relative overflow-hidden rounded-lg border-2 border-border',
+        'transition-colors hover:border-primary focus-visible:border-primary'
+      )}
       ref={ref}
       {...props}
     >
-      <span className="text-base font-medium text-zinc-200 md:text-sm">
+      <span className="text-base font-medium text-foreground  md:text-sm">
         Adicionar nota
       </span>
-      <p className="text-base leading-6 text-zinc-400 md:text-sm">
+      <p className="text-base leading-6 text-muted-foreground md:text-sm">
         Grave uma nota em áudio que será convertida para texto automaticamente.
       </p>
 
-      <div className="absolute right-0 top-0 bg-zinc-800 p-1.5 text-zinc-500 transition-colors group-focus-visible:bg-violet-300">
-        <ArrowUpRight className="size-5 transition-colors group-focus-visible:text-zinc-900" />
+      <div
+        className={cn(
+          'p-1.5',
+          'absolute right-0 top-0',
+          'dark:bg-zinc-900',
+          'bg-border',
+          'text-muted-foreground',
+          'transition-colors',
+          'group-hover:bg-primary',
+          'group-focus-visible:bg-primary'
+        )}
+      >
+        <ArrowUpRight
+          className={cn(
+            'size-5 transition-colors',
+            'group-hover:text-zinc-900 group-focus-visible:text-zinc-900'
+          )}
+        />
       </div>
     </button>
   )

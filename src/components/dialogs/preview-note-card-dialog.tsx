@@ -1,5 +1,6 @@
 import { useNotesStore } from '../../store/use-notes-store'
 import { Note } from '../../types/note'
+import { cn } from '../../utils/cn'
 import { formatDistanceToNow } from '../../utils/format-distance-to-now'
 import { Dialog } from './dialog'
 
@@ -14,16 +15,23 @@ const PreviewNoteCardDialog: React.FC<PreviewNoteCardDialogProps> = ({
 }: PreviewNoteCardDialogProps) => {
   const { onDeleteNote } = useNotesStore()
 
+  // TODO: add toast.success when note is deleted
+
   return (
     <Dialog.Root>
       <Dialog.Trigger>{children}</Dialog.Trigger>
 
       <Dialog.Content>
         <div className="flex flex-1 flex-col gap-3 p-5">
-          <span className="text-base font-medium text-zinc-300 md:text-sm">
+          <span className="text-base font-medium text-foreground md:text-sm">
             {formatDistanceToNow(note.date)}
           </span>
-          <p className="text-base leading-6 text-zinc-400 md:text-sm">
+          <p
+            className={cn(
+              'text-base leading-6',
+              'text-foreground dark:text-muted-foreground'
+            )}
+          >
             {note.content}
           </p>
         </div>
@@ -31,7 +39,11 @@ const PreviewNoteCardDialog: React.FC<PreviewNoteCardDialogProps> = ({
         <button
           type="button"
           onClick={() => onDeleteNote(note.id)}
-          className="group w-full bg-zinc-900 py-4 text-center text-base font-medium text-zinc-300 outline-none md:text-sm"
+          className={cn(
+            'group w-full py-4 outline-none',
+            'bg-zinc-900 hover:bg-zinc-900/90',
+            'text-center text-base font-medium text-white md:text-sm'
+          )}
         >
           Deseja{' '}
           <span className="text-red-400 group-hover:underline">
