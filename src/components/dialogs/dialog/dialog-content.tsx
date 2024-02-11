@@ -2,6 +2,8 @@ import * as Dialog from '@radix-ui/react-dialog'
 import { DialogContentProps } from '@radix-ui/react-dialog'
 import { X } from 'lucide-react'
 
+import { cn } from '../../../utils/cn'
+
 const DialogContent: React.FC<DialogContentProps> = ({
   children,
   ...rest
@@ -10,10 +12,25 @@ const DialogContent: React.FC<DialogContentProps> = ({
     <Dialog.Portal>
       <Dialog.Overlay className="fixed inset-0 bg-black/50" />
       <Dialog.Content
-        className="fixed inset-0 flex w-full flex-col overflow-hidden bg-zinc-800 outline-none md:inset-auto md:left-1/2 md:top-1/2 md:h-[60vh] md:max-w-[600px] md:-translate-x-1/2 md:-translate-y-1/2 md:rounded-md"
+        className={cn(
+          'flex w-full flex-col',
+          'fixed inset-0',
+          'bg-background',
+          'outline-none',
+          'dark:border dark:border-border',
+          'overflow-y-auto overflow-x-hidden',
+          'md:inset-auto md:left-1/2 md:top-1/2 md:h-[90vh]',
+          'md:max-w-2xl md:-translate-x-1/2 md:-translate-y-1/2 md:rounded-md'
+        )}
         {...rest}
       >
-        <Dialog.Close className="absolute right-0 top-0 bg-zinc-900 p-1.5 text-zinc-500 hover:text-zinc-300">
+        <Dialog.Close
+          className={cn(
+            'absolute right-1 top-1',
+            'p-1.5',
+            'text-muted-foreground hover:text-foreground'
+          )}
+        >
           <X className="size-5" />
         </Dialog.Close>
 

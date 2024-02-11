@@ -1,6 +1,7 @@
 import { ChangeEvent, useState } from 'react'
 
 import { useNotesStore } from '../../store/use-notes-store'
+import { cn } from '../../utils/cn'
 
 const SearchNotesForm: React.FC = () => {
   const { onSearchNotes } = useNotesStore()
@@ -19,7 +20,12 @@ const SearchNotesForm: React.FC = () => {
       <input
         type="text"
         placeholder="Busque em suas notas..."
-        className="w-full bg-transparent text-2xl font-semibold tracking-tight outline-none placeholder:text-zinc-500 md:text-3xl"
+        className={cn(
+          'dark:placeholder:text-muted',
+          'bg-transparent text-foreground placeholder:text-zinc-300',
+          'w-full outline-none',
+          'text-xl font-semibold tracking-tight md:text-2xl'
+        )}
         value={search}
         onChange={handleSearch}
       />
