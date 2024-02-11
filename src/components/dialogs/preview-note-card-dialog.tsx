@@ -2,6 +2,7 @@ import { useNotesStore } from '../../store/use-notes-store'
 import { Note } from '../../types/note'
 import { cn } from '../../utils/cn'
 import { formatDistanceToNow } from '../../utils/format-distance-to-now'
+import { Button } from '../button'
 import { Dialog } from './dialog'
 
 type PreviewNoteCardDialogProps = {
@@ -36,7 +37,7 @@ const PreviewNoteCardDialog: React.FC<PreviewNoteCardDialogProps> = ({
           </p>
         </div>
 
-        <button
+        <Button
           type="button"
           onClick={() => onDeleteNote(note.id)}
           className={cn(
@@ -50,7 +51,7 @@ const PreviewNoteCardDialog: React.FC<PreviewNoteCardDialogProps> = ({
             apagar essa nota
           </span>
           ?
-        </button>
+        </Button>
       </Dialog.Content>
     </Dialog.Root>
   )

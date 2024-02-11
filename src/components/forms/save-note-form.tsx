@@ -4,6 +4,7 @@ import { toast } from 'sonner'
 import { useSpeechRecognition } from '../../hooks/use-speech-recognition'
 import { useNotesStore } from '../../store/use-notes-store'
 import { cn } from '../../utils/cn'
+import { Button } from '../button'
 
 const SaveNoteForm: React.FC = () => {
   const { onSaveNote } = useNotesStore()
@@ -72,7 +73,7 @@ const SaveNoteForm: React.FC = () => {
         {shouldShowOnboarding ? (
           <p className="text-base leading-6 text-muted-foreground md:text-sm">
             Comece{' '}
-            <button
+            <Button
               type="button"
               onClick={handleStartRecording}
               className={cn(
@@ -82,9 +83,9 @@ const SaveNoteForm: React.FC = () => {
               )}
             >
               gravando uma nota
-            </button>{' '}
+            </Button>{' '}
             em áudio ou se preferir{' '}
-            <button
+            <Button
               type="button"
               onClick={handleStartEditor}
               className={cn(
@@ -94,7 +95,7 @@ const SaveNoteForm: React.FC = () => {
               )}
             >
               utilize apenas texto
-            </button>
+            </Button>
             .
           </p>
         ) : (
@@ -113,7 +114,7 @@ const SaveNoteForm: React.FC = () => {
       </div>
 
       {isRecording ? (
-        <button
+        <Button
           type="button"
           onClick={handleStopRecording}
           className={cn(
@@ -130,9 +131,9 @@ const SaveNoteForm: React.FC = () => {
             )}
           />
           Gravando! (clique p/ interromper)
-        </button>
+        </Button>
       ) : (
-        <button
+        <Button
           type="button"
           onClick={handleSaveNote}
           className={cn(
@@ -143,7 +144,7 @@ const SaveNoteForm: React.FC = () => {
           )}
         >
           Salvar nota
-        </button>
+        </Button>
       )}
     </form>
   )

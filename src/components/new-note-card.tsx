@@ -2,18 +2,22 @@ import { ArrowUpRight } from 'lucide-react'
 import React from 'react'
 
 import { cn } from '../utils/cn'
+import { Button, ButtonProps } from './button'
 
-const NewNoteCard = React.forwardRef<HTMLButtonElement>(({ ...props }, ref) => {
+const NewNoteCard: React.FC<ButtonProps> = ({
+  className = undefined,
+  ...props
+}: ButtonProps) => {
   return (
-    <button
+    <Button
       className={cn(
         'flex h-full max-w-60 flex-col gap-3',
         'text-left',
         'bg-muted p-4 outline-none',
         'group relative overflow-hidden rounded-lg border-2 border-border',
-        'transition-colors hover:border-primary focus-visible:border-primary'
+        'transition-colors hover:border-primary focus-visible:border-primary',
+        className
       )}
-      ref={ref}
       {...props}
     >
       <span className="text-base font-medium text-foreground  md:text-sm">
@@ -42,10 +46,8 @@ const NewNoteCard = React.forwardRef<HTMLButtonElement>(({ ...props }, ref) => {
           )}
         />
       </div>
-    </button>
+    </Button>
   )
-})
-
-NewNoteCard.displayName = 'NewNoteCard'
+}
 
 export { NewNoteCard }
