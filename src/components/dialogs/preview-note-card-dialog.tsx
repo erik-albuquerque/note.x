@@ -1,3 +1,5 @@
+import { toast } from 'sonner'
+
 import { useNotesStore } from '../../store/use-notes-store'
 import { Note } from '../../types/note'
 import { cn } from '../../utils/cn'
@@ -16,7 +18,10 @@ const PreviewNoteCardDialog: React.FC<PreviewNoteCardDialogProps> = ({
 }: PreviewNoteCardDialogProps) => {
   const { onDeleteNote } = useNotesStore()
 
-  // TODO: add toast.success when note is deleted
+  const handleDeleteNote = (id: string) => {
+    onDeleteNote(id)
+    toast.success('Nota deletada com sucesso!')
+  }
 
   return (
     <Dialog.Root>
@@ -39,7 +44,7 @@ const PreviewNoteCardDialog: React.FC<PreviewNoteCardDialogProps> = ({
 
         <Button
           type="button"
-          onClick={() => onDeleteNote(note.id)}
+          onClick={() => handleDeleteNote(note.id)}
           className={cn(
             'group w-full py-4 outline-none',
             'bg-zinc-900 hover:bg-zinc-900/90',
