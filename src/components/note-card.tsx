@@ -17,7 +17,7 @@ const NoteCard: React.FC<NoteCardProps> = ({
   return (
     <Button
       className={cn(
-        'relative flex flex-col gap-3',
+        'relative flex max-h-[460px] flex-col gap-3',
         'outline-none',
         'overflow-hidden rounded-lg border-2 border-border p-5 text-left',
         'transition-colors hover:bg-muted/50 focus-visible:border-primary',

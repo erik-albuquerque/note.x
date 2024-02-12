@@ -10,6 +10,7 @@
     - content
     - author
     - is_pinned
+    - tags
     - create_at
     - updated_at
   - [ ] User table
@@ -29,3 +30,5 @@
 - [ ] Markdown support
 - [ ] Attach file support
 - [ ] Dynamic favicon (Dark/Light)
+- [ ] Custom note support (Theme, Font, etc)
+- [x] Masonry in the list of notes
