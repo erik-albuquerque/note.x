@@ -1,7 +1,6 @@
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry'
 
 import { useNotesStore } from '../store/use-notes-store'
-import { PreviewNoteCardDialog } from './dialogs/preview-note-card-dialog'
 import { NoteCard } from './note-card'
 
 const CardWall: React.FC = () => {
@@ -13,9 +12,7 @@ const CardWall: React.FC = () => {
     <ResponsiveMasonry columnsCountBreakPoints={columnsCountBreakPoints}>
       <Masonry gutter="0.5rem">
         {notes.map((note) => (
-          <PreviewNoteCardDialog key={note.id} note={note}>
-            <NoteCard note={note} />
-          </PreviewNoteCardDialog>
+          <NoteCard key={note.id} note={note} />
         ))}
       </Masonry>
     </ResponsiveMasonry>

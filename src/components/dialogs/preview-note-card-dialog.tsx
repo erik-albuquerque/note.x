@@ -1,3 +1,4 @@
+import { type DialogProps } from '@radix-ui/react-dialog'
 import { toast } from 'sonner'
 
 import { useNotesStore } from '../../store/use-notes-store'
@@ -7,14 +8,13 @@ import { formatDistanceToNow } from '../../utils/format-distance-to-now'
 import { Button } from '../button'
 import { Dialog } from './dialog'
 
-type PreviewNoteCardDialogProps = {
-  children: React.ReactNode
+export type PreviewNoteCardDialogProps = DialogProps & {
   note: Note
 }
 
 const PreviewNoteCardDialog: React.FC<PreviewNoteCardDialogProps> = ({
   note,
-  children
+  ...props
 }: PreviewNoteCardDialogProps) => {
   const { onDeleteNote } = useNotesStore()
 
@@ -24,9 +24,7 @@ const PreviewNoteCardDialog: React.FC<PreviewNoteCardDialogProps> = ({
   }
 
   return (
-    <Dialog.Root>
-      <Dialog.Trigger>{children}</Dialog.Trigger>
-
+    <Dialog.Root {...props}>
       <Dialog.Content>
         <div className="flex flex-1 flex-col gap-3 p-5">
           <span className="text-base font-medium text-foreground md:text-sm">

@@ -23,7 +23,7 @@
     - create_at
     - updated_at
 - [ ] React Query
-- [ ] Confirm deletion before deleting the note
+- [x] Confirm deletion before deleting the note
 - [ ] Edit notes
 - [ ] Pin notes
 - [ ] Debounce to the note search input
