@@ -1,12 +1,12 @@
 import * as Dialog from '@radix-ui/react-dialog'
-import { DialogContentProps } from '@radix-ui/react-dialog'
+import { type DialogContentProps } from '@radix-ui/react-dialog'
 import { X } from 'lucide-react'
 
 import { cn } from '../../../utils/cn'
 
 const DialogContent: React.FC<DialogContentProps> = ({
   children,
-  ...rest
+  ...props
 }: DialogContentProps) => {
   return (
     <Dialog.Portal>
@@ -22,7 +22,7 @@ const DialogContent: React.FC<DialogContentProps> = ({
           'md:inset-auto md:left-1/2 md:top-1/2 md:h-[90vh]',
           'md:max-w-2xl md:-translate-x-1/2 md:-translate-y-1/2 md:rounded-md'
         )}
-        {...rest}
+        {...props}
       >
         <Dialog.Close
           className={cn(

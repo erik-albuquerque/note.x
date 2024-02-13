@@ -2,7 +2,7 @@ import { ArrowUpRight } from 'lucide-react'
 import React from 'react'
 
 import { cn } from '../utils/cn'
-import { Button, ButtonProps } from './button'
+import { Button, type ButtonProps } from './button'
 
 const NewNoteCard: React.FC<ButtonProps> = ({
   className = undefined,

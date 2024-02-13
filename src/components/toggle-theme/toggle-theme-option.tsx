@@ -2,12 +2,13 @@ import React from 'react'
 
 import { cn } from '../../utils/cn'
 
-interface ToggleThemeOptionProps extends React.HTMLAttributes<HTMLDivElement> {}
+export interface ToggleThemeOptionProps
+  extends React.HTMLAttributes<HTMLDivElement> {}
 
 const ToggleThemeOption = React.forwardRef<
   HTMLDivElement,
   ToggleThemeOptionProps
->(({ children, className = undefined, ...rest }, ref) => {
+>(({ children, className = undefined, ...props }, ref) => {
   return (
     <div
       className={cn(
@@ -20,7 +21,7 @@ const ToggleThemeOption = React.forwardRef<
         className
       )}
       ref={ref}
-      {...rest}
+      {...props}
     >
       {children}
     </div>

@@ -3,7 +3,7 @@ import React from 'react'
 
 import { useTheme } from '../../hooks/use-theme'
 import { cn } from '../../utils/cn'
-import { Button, ButtonProps } from '../button'
+import { Button, type ButtonProps } from '../button'
 
 const ToggleThemeTrigger = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ ...props }, ref) => {

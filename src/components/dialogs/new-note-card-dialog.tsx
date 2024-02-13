@@ -1,7 +1,7 @@
 import { SaveNoteForm } from '../forms/save-note-form'
 import { Dialog } from './dialog'
 
-type NewNoteCardDialogProps = {
+export type NewNoteCardDialogProps = {
   children: React.ReactNode
 }
 
