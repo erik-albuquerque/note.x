@@ -2,6 +2,7 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
 import { useTheme } from '../../hooks/use-theme'
 import { cn } from '../../utils/cn'
+import { Tooltip } from '../tooltip'
 import { ToggleThemeOption } from './toggle-theme-option'
 import { ToggleThemeTrigger } from './toggle-theme-trigger'
 
@@ -10,8 +11,13 @@ const ToggleTheme = () => {
 
   return (
     <DropdownMenu.Root>
-      <DropdownMenu.Trigger asChild>
-        <ToggleThemeTrigger />
+      <DropdownMenu.Trigger>
+        <Tooltip.Root>
+          <Tooltip.Trigger>
+            <ToggleThemeTrigger />
+          </Tooltip.Trigger>
+          <Tooltip.Content align="end">Toggle theme</Tooltip.Content>
+        </Tooltip.Root>
       </DropdownMenu.Trigger>
 
       <DropdownMenu.Portal>
