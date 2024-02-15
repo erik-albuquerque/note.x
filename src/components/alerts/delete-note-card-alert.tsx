@@ -1,4 +1,5 @@
 import { AlertDialogProps } from '@radix-ui/react-alert-dialog'
+import { PropsWithChildren } from 'react'
 import { toast } from 'sonner'
 
 import { useNotesStore } from '../../store/use-notes-store'
@@ -6,12 +7,14 @@ import { cn } from '../../utils/cn'
 import { Button } from '../button'
 import { Alert } from './alert'
 
-type DeleteNoteCardAlertProps = AlertDialogProps & {
-  noteId: string
-}
+type DeleteNoteCardAlertProps = AlertDialogProps &
+  PropsWithChildren & {
+    noteId: string
+  }
 
 const DeleteNoteCardAlert: React.FC<DeleteNoteCardAlertProps> = ({
   noteId,
+  children,
   ...props
 }: DeleteNoteCardAlertProps) => {
   const { onDeleteNote } = useNotesStore()
@@ -23,6 +26,7 @@ const DeleteNoteCardAlert: React.FC<DeleteNoteCardAlertProps> = ({
 
   return (
     <Alert.Root {...props}>
+      {children && <Alert.Trigger>{children}</Alert.Trigger>}
       <Alert.Content className="p-5">
         <Alert.Title className="text-lg font-medium text-foreground">
           Você tem certeza absoluta?
@@ -33,7 +37,7 @@ const DeleteNoteCardAlert: React.FC<DeleteNoteCardAlertProps> = ({
         </Alert.Description>
         <div className="flex justify-end gap-6">
           <Alert.Cancel asChild>
-            <Button className="font-medium leading-none text-foreground outline-none">
+            <Button className="text-sm font-medium leading-none text-foreground outline-none">
               Cancelar
             </Button>
           </Alert.Cancel>
@@ -42,10 +46,10 @@ const DeleteNoteCardAlert: React.FC<DeleteNoteCardAlertProps> = ({
               onClick={handleDeleteNote}
               className={cn(
                 'p-3 px-4',
-                'font-medium leading-none',
+                'text-sm font-medium leading-none',
                 'rounded outline-none',
                 'bg-destructive-foreground text-white transition-colors',
-                'hover:bg-destructive'
+                'hover:bg-destructive-foreground/90'
               )}
             >
               Sim, apagar nota

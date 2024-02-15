@@ -1,14 +1,13 @@
 import { type DialogProps } from '@radix-ui/react-dialog'
 import { format } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
-import { toast } from 'sonner'
 
-import { useNotesStore } from '../../store/use-notes-store'
 import { Note } from '../../types/note'
 import { cn } from '../../utils/cn'
 import { formatDate } from '../../utils/format-date'
 import { formatDistanceToNow } from '../../utils/format-distance-to-now'
 import { formatHours } from '../../utils/format-hours'
+import { DeleteNoteCardAlert } from '../alerts/delete-note-card-alert'
 import { Button } from '../button'
 import { Dialog } from './dialog'
 
@@ -20,13 +19,6 @@ const PreviewNoteCardDialog: React.FC<PreviewNoteCardDialogProps> = ({
   note,
   ...props
 }: PreviewNoteCardDialogProps) => {
-  const { onDeleteNote } = useNotesStore()
-
-  const handleDeleteNote = (id: string) => {
-    onDeleteNote(id)
-    toast.success('Nota deletada com sucesso!')
-  }
-
   const renderDate = (date: Date) => {
     const distanceToNow = formatDistanceToNow(date)
 
@@ -58,21 +50,22 @@ const PreviewNoteCardDialog: React.FC<PreviewNoteCardDialogProps> = ({
           </p>
         </div>
 
-        <Button
-          type="button"
-          onClick={() => handleDeleteNote(note.id)}
-          className={cn(
-            'group w-full py-4 outline-none',
-            'bg-zinc-900 hover:bg-zinc-900/90',
-            'text-center text-base font-medium text-white md:text-sm'
-          )}
-        >
-          Deseja{' '}
-          <span className="text-red-400 group-hover:underline">
-            apagar essa nota
-          </span>
-          ?
-        </Button>
+        <DeleteNoteCardAlert noteId={note.id}>
+          <Button
+            type="button"
+            className={cn(
+              'group w-full py-4 outline-none',
+              'bg-zinc-900',
+              'text-center text-base font-medium text-white md:text-sm'
+            )}
+          >
+            Deseja{' '}
+            <span className="text-red-400 group-hover:underline">
+              apagar essa nota
+            </span>
+            ?
+          </Button>
+        </DeleteNoteCardAlert>
       </Dialog.Content>
     </Dialog.Root>
   )
