@@ -32,3 +32,5 @@
 - [ ] Dynamic favicon (Dark/Light)
 - [ ] Custom note support (Theme, Font, etc)
 - [x] Masonry in the list of notes
+- [x] Add note title
+- [ ] Idiomas (pt-br, us, es)

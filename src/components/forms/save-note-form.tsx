@@ -1,3 +1,4 @@
+import { ChevronLeft } from 'lucide-react'
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import { toast } from 'sonner'
 
@@ -13,6 +14,7 @@ const SaveNoteForm: React.FC = () => {
 
   const [shouldShowOnboarding, setShouldShowOnboarding] = useState(true)
   const [content, setContent] = useState('')
+  const [title, setTitle] = useState('')
 
   const handleStartEditor = () => {
     setShouldShowOnboarding(!shouldShowOnboarding)
@@ -24,17 +26,30 @@ const SaveNoteForm: React.FC = () => {
     setContent(value)
 
     if (value === '') {
+      setTitle('')
       setShouldShowOnboarding(true)
     }
+  }
+
+  const handleTitleChanged = (event: ChangeEvent<HTMLInputElement>) => {
+    setTitle(event.target.value)
+  }
+
+  const resetFields = () => {
+    setContent('')
+    setTitle('')
   }
 
   const handleSaveNote = (event: FormEvent) => {
     event.preventDefault()
 
-    if (content === '') return
+    if (content === '' || title === '') {
+      toast.error('Preencha todos os campos antes de salvar.')
+      return
+    }
 
-    onSaveNote(content)
-    setContent('')
+    onSaveNote(title, content)
+    resetFields()
     setShouldShowOnboarding(true)
     toast.success('Nota criada com sucesso!')
   }
@@ -60,6 +75,12 @@ const SaveNoteForm: React.FC = () => {
     stopRecording()
   }
 
+  const handleGoBack = () => {
+    resetFields()
+    stopRecording()
+    setShouldShowOnboarding(true)
+  }
+
   useEffect(() => {
     setContent(speechText)
   }, [speechText])
@@ -67,9 +88,17 @@ const SaveNoteForm: React.FC = () => {
   return (
     <form className="flex flex-1 flex-col">
       <div className="flex flex-1 flex-col gap-3 p-5">
-        <span className="text-base font-medium text-foreground md:text-sm">
-          Adicionar nota
-        </span>
+        <div className="flex items-center gap-2">
+          {!shouldShowOnboarding && (
+            <Button type="button" onClick={handleGoBack}>
+              <ChevronLeft className="size-6 text-foreground hover:text-muted-foreground" />
+            </Button>
+          )}
+          <span className="text-xl font-medium text-foreground">
+            Adicionar nota
+          </span>
+        </div>
+
         {shouldShowOnboarding ? (
           <p className="text-base leading-6 text-muted-foreground md:text-sm">
             Comece{' '}
@@ -99,17 +128,27 @@ const SaveNoteForm: React.FC = () => {
             .
           </p>
         ) : (
-          <textarea
-            autoFocus
-            className={cn(
-              'bg-transparent',
-              'flex-1',
-              'resize-none outline-none',
-              'text-base leading-6 text-foreground md:text-sm'
-            )}
-            onChange={handleContentChanged}
-            value={content}
-          />
+          <div className="mt-5 flex h-full flex-col gap-5">
+            <input
+              type="text"
+              placeholder="Título"
+              className="bg-transparent text-lg text-foreground outline-none placeholder:text-base"
+              value={title}
+              onChange={handleTitleChanged}
+            />
+            <textarea
+              autoFocus
+              className={cn(
+                'bg-transparent',
+                'flex-1',
+                'resize-none outline-none',
+                'text-base leading-6 text-foreground placeholder:text-base md:text-sm'
+              )}
+              placeholder="Nota aqui..."
+              onChange={handleContentChanged}
+              value={content}
+            />
+          </div>
         )}
       </div>
 

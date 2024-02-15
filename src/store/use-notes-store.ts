@@ -5,18 +5,19 @@ import { generateUuid } from '../utils/generate-uuid'
 
 type NotesState = {
   notes: Notes
-  onSaveNote: (content: string) => void
+  onSaveNote: (title: string, content: string) => void
   onDeleteNote: (id: string) => void
   onSearchNotes: (query: string) => void
 }
 
 const useNotesStore = create<NotesState>((set) => ({
   notes: JSON.parse(localStorage.getItem('notes')!) ?? [],
-  onSaveNote: (content) =>
+  onSaveNote: (title, content) =>
     set((state) => {
       const note: Note = {
         id: generateUuid(),
         date: new Date(),
+        title,
         content
       }
 
@@ -32,10 +33,14 @@ const useNotesStore = create<NotesState>((set) => ({
     set((state) => {
       const filteredNotes =
         query !== ''
-          ? state.notes.filter((note) =>
-              note.content
-                .toLocaleLowerCase()
-                .includes(query.toLocaleLowerCase())
+          ? state.notes.filter(
+              (note) =>
+                note.content
+                  .toLocaleLowerCase()
+                  .includes(query.toLocaleLowerCase()) ||
+                note.title
+                  .toLocaleLowerCase()
+                  .includes(query.toLocaleLowerCase())
             )
           : JSON.parse(localStorage.getItem('notes')!) ?? []
 

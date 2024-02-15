@@ -10,6 +10,9 @@ const SearchNotesForm: React.FC = () => {
   const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
     const query = event.target.value
 
+    /* FIXME: If the query is filled in when adding a new note, it overwrites 
+    all the notes for the notes that were found in the search. */
+
     setSearch(query)
 
     onSearchNotes(query)

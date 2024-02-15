@@ -15,7 +15,7 @@ const NoteCardToolbarRoot: React.FC<NoteCardToolbarRootProps> = ({
   return (
     <div
       className={cn(
-        'relative mb-2 flex h-7 w-full items-center gap-0.5',
+        'relative mb-2 flex h-7 w-full cursor-default items-center gap-0.5',
         className
       )}
       {...props}

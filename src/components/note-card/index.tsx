@@ -3,7 +3,9 @@ import React, { useState } from 'react'
 
 import { Note } from '../../types/note'
 import { cn } from '../../utils/cn'
+import { formatDate } from '../../utils/format-date'
 import { formatDistanceToNow } from '../../utils/format-distance-to-now'
+import { formatHours } from '../../utils/format-hours'
 import { DeleteNoteCardAlert } from '../alerts/delete-note-card-alert'
 import { Button, type ButtonProps } from '../button'
 import { PreviewNoteCardDialog } from '../dialogs/preview-note-card-dialog'
@@ -32,12 +34,22 @@ const NoteCard: React.FC<NoteCardProps> = ({
     setIsPreviewNoteCardDialogOpen(true)
   const handleShowDeleteNoteCardAlert = () => setIsDeleteNoteCardAlertOpen(true)
 
+  const renderDate = (date: Date) => {
+    const distanceToNow = formatDistanceToNow(date)
+
+    if (distanceToNow.includes('dias')) {
+      return `${formatDate(date)} • ${formatHours(note.date)}`
+    }
+
+    return distanceToNow
+  }
+
   return (
     <>
       <Button
         className={cn(
           'relative flex max-h-[460px] flex-col gap-3',
-          'outline-none',
+          'cursor-default outline-none',
           'rounded-lg border-2 border-border p-5 pb-0 text-left',
           'transition-colors focus-visible:border-primary',
           className
@@ -47,15 +59,22 @@ const NoteCard: React.FC<NoteCardProps> = ({
         {...props}
       >
         <div
-          className="flex w-full flex-1 flex-col gap-3 overflow-hidden"
+          className="flex w-full flex-1 cursor-pointer flex-col gap-3 overflow-hidden"
           onClick={handleShowPreviewNoteCardDialog}
         >
-          <span className="text-base font-medium text-foreground md:text-sm">
-            {formatDistanceToNow(note.date)}
+          <span className="truncate text-base font-medium text-foreground">
+            {note.title}
           </span>
-          <p className="text-base leading-6 text-muted-foreground md:text-sm">
-            {note.content}
-          </p>
+
+          <div className="flex flex-col gap-2">
+            <p className="text-base leading-6 text-foreground md:text-sm">
+              {note.content}
+            </p>
+
+            <span className="text-base text-muted-foreground md:text-xs">
+              {renderDate(note.date)}
+            </span>
+          </div>
         </div>
 
         <NoteCardToolbar.Root isActive={isHovering}>
