@@ -1,11 +1,12 @@
 import * as Dialog from '@radix-ui/react-dialog'
 import { type DialogContentProps } from '@radix-ui/react-dialog'
-import { X } from 'lucide-react'
+import * as Lucide from 'lucide-react'
 
 import { cn } from '../../../utils/cn'
 
 const DialogContent: React.FC<DialogContentProps> = ({
   children,
+  className = undefined,
   ...props
 }: DialogContentProps) => {
   return (
@@ -18,9 +19,10 @@ const DialogContent: React.FC<DialogContentProps> = ({
           'bg-background',
           'outline-none',
           'dark:border dark:border-border',
-          'overflow-y-auto overflow-x-hidden',
+          'z-20 overflow-y-auto overflow-x-hidden',
           'md:inset-auto md:left-1/2 md:top-1/2 md:h-[90vh]',
-          'md:max-w-2xl md:-translate-x-1/2 md:-translate-y-1/2 md:rounded-md'
+          'md:max-w-2xl md:-translate-x-1/2 md:-translate-y-1/2 md:rounded-md',
+          className
         )}
         {...props}
       >
@@ -31,7 +33,7 @@ const DialogContent: React.FC<DialogContentProps> = ({
             'text-muted-foreground hover:text-foreground'
           )}
         >
-          <X className="size-5" />
+          <Lucide.X className="size-5" />
         </Dialog.Close>
 
         {children}

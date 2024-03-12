@@ -1,112 +1,167 @@
-import { Trash2 } from 'lucide-react'
-import React, { useState } from 'react'
+import React, { ComponentProps, useCallback, useState } from 'react'
 
 import { Note } from '../../types/note'
 import { cn } from '../../utils/cn'
-import { formatDate } from '../../utils/format-date'
-import { formatDistanceToNow } from '../../utils/format-distance-to-now'
-import { formatHours } from '../../utils/format-hours'
-import { DeleteNoteCardAlert } from '../alerts/delete-note-card-alert'
-import { Button, type ButtonProps } from '../button'
-import { PreviewNoteCardDialog } from '../dialogs/preview-note-card-dialog'
-import { Tooltip } from '../tooltip'
-import { NoteCardToolbar } from './note-card-toolbar'
+import { formatDisplayDate } from '../../utils/date/format-display-date'
+import {
+  themeBackgroundColorVariants,
+  type ThemeBackgroundColorVariantsProps
+} from '../../utils/variants/theme-background-color-variants'
+import {
+  themeBorderVariants,
+  type ThemeBorderVariantsProps
+} from '../../utils/variants/theme-border-variants'
+import { themeFontVariants } from '../../utils/variants/theme-font-variants'
+import { CustomToolbar } from '../custom-toolbar'
+import { PreviewNoteDialog } from '../dialogs/preview-note-dialog'
+import { useHover } from './hooks/use-hover'
 
-export type NoteCardProps = ButtonProps & {
-  note: Note
-}
+/*
+  I don't know why, but it only works if I leave this code commented out, 
+  if I remove it, the styles don't work
+*/
 
-const NoteCard: React.FC<NoteCardProps> = ({
-  note,
-  className = undefined,
-  ...props
-}: NoteCardProps) => {
-  const [isHovering, setIsHovering] = useState(false)
-  const [isPreviewNoteCardDialogOpen, setIsPreviewNoteCardDialogOpen] =
-    useState(false)
-  const [isDeleteNoteCardAlertOpen, setIsDeleteNoteCardAlertOpen] =
-    useState(false)
+// const borderVariants = cva(null, {
+//   variants: {
+//     border: {
+//       coral:
+//         'data-[color=coral]:border-coral dark:data-[color=coral]:border-coral-dark',
+//       peach:
+//         'data-[color=peach]:border-peach dark:data-[color=peach]:border-peach-dark',
+//       sand: 'data-[color=sand]:border-sand dark:data-[color=sand]:border-sand-dark',
+//       mint: 'data-[color=mint]:border-mint dark:data-[color=mint]:border-mint-dark',
+//       sage: 'data-[color=sage]:border-sage dark:data-[color=sage]:border-sage-dark',
+//       fog: 'data-[color=fog]:border-fog dark:data-[color=fog]:border-fog-dark',
+//       storm:
+//         'data-[color=storm]:border-storm dark:data-[color=storm]:border-storm-dark',
+//       dusk: 'data-[color=dusk]:border-dusk dark:data-[color=dusk]:border-dusk-dark',
+//       blossom:
+//         'data-[color=blossom]:border-blossom dark:data-[color=blossom]:border-blossom-dark',
+//       clay: 'data-[color=clay]:border-clay dark:data-[color=clay]:border-clay-dark',
+//       chalk:
+//         'data-[color=chalk]:border-chalk dark:data-[color=chalk]:border-chalk-dark',
+//       default: 'border-border'
+//     }
+//   },
+//   defaultVariants: {
+//     border: 'default'
+//   }
+// })
 
-  const handleMouseOver = () => setIsHovering(true)
-  const handleMouseLeave = () => setIsHovering(false)
-
-  const handleShowPreviewNoteCardDialog = () =>
-    setIsPreviewNoteCardDialogOpen(true)
-  const handleShowDeleteNoteCardAlert = () => setIsDeleteNoteCardAlertOpen(true)
-
-  const renderDate = (date: Date) => {
-    const distanceToNow = formatDistanceToNow(date)
-
-    if (distanceToNow.includes('dias')) {
-      return `${formatDate(date)} • ${formatHours(note.date)}`
-    }
-
-    return distanceToNow
+export type NoteCardProps = ComponentProps<'div'> &
+  ThemeBackgroundColorVariantsProps &
+  ThemeBorderVariantsProps & {
+    currentNote: Note
   }
 
-  return (
-    <>
-      <Button
+const NoteCard = React.memo(
+  ({ currentNote, className = undefined, theme, ...props }: NoteCardProps) => {
+    const { isHovered, handleHoverOver, handleHoverLeave } = useHover()
+
+    const [isPreviewNoteDialogOpen, setIsPreviewNoteDialogOpen] =
+      useState(false)
+
+    const handleShowPreviewNoteDialog = useCallback(() => {
+      setIsPreviewNoteDialogOpen(true)
+    }, [])
+
+    const currentNoteThemeColor = currentNote.theme?.color
+
+    const colorName = currentNoteThemeColor ?? 'default'
+
+    const formattedAlternativeDate = formatDisplayDate({
+      date: currentNote.date
+    })
+
+    const themeFontClassName = themeFontVariants({
+      theme: currentNote.theme?.font
+    })
+    const themeBackgroundClassName = themeBackgroundColorVariants({
+      theme
+    })
+    const themeBorderClassName = themeBorderVariants({
+      theme: currentNoteThemeColor
+    })
+
+    return (
+      <div
+        data-color={colorName}
         className={cn(
-          'relative flex max-h-[460px] flex-col gap-3',
-          'cursor-default outline-none',
-          'rounded-lg border-2 border-border p-5 pb-0 text-left',
-          'transition-colors focus-visible:border-primary',
+          'relative flex min-w-64 flex-col gap-3',
+          'cursor-pointer outline-none',
+          'rounded-lg p-3 pb-0 text-left',
+          'border-2 transition-colors focus-visible:border-primary',
+          themeBackgroundClassName,
+          themeBorderClassName,
           className
         )}
-        onMouseOver={handleMouseOver}
-        onMouseLeave={handleMouseLeave}
+        onMouseOver={handleHoverOver}
+        onMouseLeave={handleHoverLeave}
         {...props}
       >
         <div
-          className="flex w-full flex-1 cursor-pointer flex-col gap-3 overflow-hidden"
-          onClick={handleShowPreviewNoteCardDialog}
+          className={cn(
+            'flex w-full flex-1 flex-col gap-2',
+            'cursor-pointer overflow-hidden'
+          )}
+          onClick={handleShowPreviewNoteDialog}
         >
-          <span className="truncate text-base font-medium text-foreground">
-            {note.title}
+          <span
+            className={cn(
+              'truncate text-base font-medium text-foreground',
+              {
+                'text-zinc-950 dark:text-foreground': currentNoteThemeColor
+              },
+              themeFontClassName
+            )}
+          >
+            {currentNote.title}
           </span>
 
-          <div className="flex flex-col gap-2">
-            <p className="text-base leading-6 text-foreground md:text-sm">
-              {note.content}
-            </p>
+          <div className="flex flex-col gap-2 transition-colors">
+            <div
+              className={cn(
+                'line-clamp-[13] h-full md:line-clamp-[20]',
+                'text-wrap text-base text-foreground md:text-sm',
+                {
+                  'text-zinc-950 dark:text-foreground': currentNoteThemeColor
+                },
+                themeFontClassName
+              )}
+            >
+              {currentNote.content}
+            </div>
 
-            <span className="text-base text-muted-foreground md:text-xs">
-              {renderDate(note.date)}
+            <span
+              className={cn(
+                'text-base text-muted-foreground md:text-xs',
+                {
+                  'text-zinc-950 dark:text-foreground': currentNoteThemeColor
+                },
+                themeFontClassName
+              )}
+            >
+              {formattedAlternativeDate}
             </span>
           </div>
         </div>
 
-        <NoteCardToolbar.Root isActive={isHovering}>
-          <Tooltip.Root>
-            <Tooltip.Trigger>
-              <NoteCardToolbar.Action onClick={handleShowDeleteNoteCardAlert}>
-                <Trash2 className="size-4 text-foreground" />
-              </NoteCardToolbar.Action>
-            </Tooltip.Trigger>
+        <CustomToolbar open={isHovered} currentNote={currentNote} />
 
-            <Tooltip.Content>Delete note</Tooltip.Content>
-          </Tooltip.Root>
-        </NoteCardToolbar.Root>
-      </Button>
-
-      {isPreviewNoteCardDialogOpen && (
-        <PreviewNoteCardDialog
-          note={note}
-          open={isPreviewNoteCardDialogOpen}
-          onOpenChange={setIsPreviewNoteCardDialogOpen}
+        <PreviewNoteDialog
+          open={isPreviewNoteDialogOpen}
+          onOpenChange={setIsPreviewNoteDialogOpen}
+          currentNote={currentNote}
+          theme={currentNoteThemeColor}
         />
-      )}
+      </div>
+    )
+  },
+  (prevProps, nextProps) => {
+    return Object.is(prevProps.currentNote, nextProps.currentNote)
+  }
+)
 
-      {isDeleteNoteCardAlertOpen && (
-        <DeleteNoteCardAlert
-          noteId={note.id}
-          open={isDeleteNoteCardAlertOpen}
-          onOpenChange={setIsDeleteNoteCardAlertOpen}
-        />
-      )}
-    </>
-  )
-}
+NoteCard.displayName = 'NoteCard'
 
 export { NoteCard }

@@ -1,11 +1,11 @@
-import { ChevronLeft } from 'lucide-react'
+import * as Lucide from 'lucide-react'
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import { toast } from 'sonner'
 
 import { useSpeechRecognition } from '../../hooks/use-speech-recognition'
 import { useNotesStore } from '../../store/use-notes-store'
 import { cn } from '../../utils/cn'
-import { Button } from '../button'
+import { Button } from '../ui/button'
 
 const SaveNoteForm: React.FC = () => {
   const { onSaveNote } = useNotesStore()
@@ -91,7 +91,7 @@ const SaveNoteForm: React.FC = () => {
         <div className="flex items-center gap-2">
           {!shouldShowOnboarding && (
             <Button type="button" onClick={handleGoBack}>
-              <ChevronLeft className="size-6 text-foreground hover:text-muted-foreground" />
+              <Lucide.ChevronLeft className="size-6 text-foreground hover:text-muted-foreground" />
             </Button>
           )}
           <span className="text-xl font-medium text-foreground">
@@ -144,7 +144,7 @@ const SaveNoteForm: React.FC = () => {
                 'resize-none outline-none',
                 'text-base leading-6 text-foreground placeholder:text-base md:text-sm'
               )}
-              placeholder="Nota aqui..."
+              placeholder="Comece a escrever/gravar, arraste arquivos ou inicie a partir de um template"
               onChange={handleContentChanged}
               value={content}
             />

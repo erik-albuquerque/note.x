@@ -4,7 +4,13 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'sans-serif']
+        sans: 'Inter, sans-serif',
+        kode_mono: 'Kode Mono, sans-serif',
+        ubuntu: 'Ubuntu, sans-serif',
+        pixelify_sans: 'Pixelify Sans, sans-serif',
+        lora: 'Lora, sans-serif',
+        jetBrains_mono: 'JetBrains Mono, sans-serif',
+        roboto: 'Roboto, sans-serif'
       },
       colors: {
         background: 'hsl(var(--background))',
@@ -26,7 +32,29 @@ export default {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
-        radius: 'hsl(var(--radius))'
+        radius: 'hsl(var(--radius))',
+        coral: '#faafa8',
+        'coral-dark': '#77172e',
+        peach: '#f39f76',
+        'peach-dark': '#692b17',
+        sand: '#fff8b8',
+        'sand-dark': '#7c4a03',
+        mint: '#e2f6d3',
+        'mint-dark': '#264d3b',
+        sage: '#b4ddd3',
+        'sage-dark': '#0c625d',
+        fog: '#d4e4ed',
+        'fog-dark': '#256377',
+        storm: '#aeccdc',
+        'storm-dark': '#284255',
+        dusk: '#d3bfdb',
+        'dusk-dark': '#472e5b',
+        blossom: '#f6e2dd',
+        'blossom-dark': '#6c394f',
+        clay: '#e9e3d4',
+        'clay-dark': '#4b443a',
+        chalk: '#efeff1',
+        'chalk-dark': '#232427'
       },
       keyframes: {
         slideDownAndFade: {

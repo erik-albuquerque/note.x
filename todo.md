@@ -26,11 +26,21 @@
 - [x] Confirm deletion before deleting the note
 - [ ] Edit notes
 - [ ] Pin notes
+- [ ] Archive notes
 - [ ] Debounce to the note search input
+- [ ] Advanced search (filters: query, color, created at, etc)
 - [ ] Markdown support
 - [ ] Attach file support
+  - [ ] drag and drop
 - [ ] Dynamic favicon (Dark/Light)
-- [ ] Custom note support (Theme, Font, etc)
+- [x] Custom note support (Color, Font, etc)
 - [x] Masonry in the list of notes
 - [x] Add note title
 - [ ] Idiomas (pt-br, us, es)
+- [ ] Trash notes
+- [ ] Link preview support
+- [ ] Template support
+- [ ] Add section of recently added, categories, pinned notes, others
+- [ ] Add new note floating button (maybe)
+- [ ] Add tailwind variants
+- [ ] Add empty state to no notes found or no notes

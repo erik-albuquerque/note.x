@@ -12,7 +12,11 @@ const CardWall: React.FC = () => {
     <ResponsiveMasonry columnsCountBreakPoints={columnsCountBreakPoints}>
       <Masonry gutter="0.5rem">
         {notes.map((note) => (
-          <NoteCard key={note.id} note={note} />
+          <NoteCard
+            key={note.id}
+            currentNote={note}
+            theme={note.theme?.color}
+          />
         ))}
       </Masonry>
     </ResponsiveMasonry>

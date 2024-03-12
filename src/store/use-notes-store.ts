@@ -1,13 +1,14 @@
 import { create } from 'zustand'
 
 import { Note, Notes } from '../types/note'
-import { generateUuid } from '../utils/generate-uuid'
+import { generateUuid } from '../utils/string/generate-uuid'
 
 type NotesState = {
   notes: Notes
   onSaveNote: (title: string, content: string) => void
   onDeleteNote: (id: string) => void
   onSearchNotes: (query: string) => void
+  onUpdateNote: (id: string, note: Partial<Note>) => void
 }
 
 const useNotesStore = create<NotesState>((set) => ({
@@ -18,7 +19,10 @@ const useNotesStore = create<NotesState>((set) => ({
         id: generateUuid(),
         date: new Date(),
         title,
-        content
+        content,
+        theme: {
+          font: 'default'
+        }
       }
 
       const notes: Notes = [note, ...state.notes]
@@ -56,6 +60,38 @@ const useNotesStore = create<NotesState>((set) => ({
 
       return {
         notes: newNotes
+      }
+    }),
+  onUpdateNote: (id, note) =>
+    set((state) => {
+      if (!note) {
+        return {
+          notes: state.notes
+        }
+      }
+
+      const oldNotes = [...state.notes]
+
+      const oldNote = oldNotes.find((note) => note.id === id)
+
+      if (!oldNote) {
+        return {
+          notes: oldNotes
+        }
+      }
+
+      oldNotes[oldNotes.findIndex((note) => note.id === id)] = {
+        id: note.id ?? oldNote.id,
+        title: note.title ?? oldNote.title,
+        content: note.content ?? oldNote.content,
+        theme: note.theme ?? oldNote.theme,
+        date: note.date ?? oldNote.date
+      }
+
+      localStorage.setItem('notes', JSON.stringify(oldNotes))
+
+      return {
+        notes: oldNotes
       }
     })
 }))

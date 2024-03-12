@@ -1,7 +1,7 @@
 import * as Tooltip from '@radix-ui/react-tooltip'
 import type { TooltipContentProps } from '@radix-ui/react-tooltip'
 
-import { cn } from '../../utils/cn'
+import { cn } from '../../../utils/cn'
 
 const TooltipContent: React.FC<TooltipContentProps> = ({
   children,

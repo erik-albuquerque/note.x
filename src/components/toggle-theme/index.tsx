@@ -2,7 +2,7 @@ import * as DropdownMenu from '@radix-ui/react-dropdown-menu'
 
 import { useTheme } from '../../hooks/use-theme'
 import { cn } from '../../utils/cn'
-import { Tooltip } from '../tooltip'
+import { Tooltip } from '../ui/tooltip'
 import { ToggleThemeOption } from './toggle-theme-option'
 import { ToggleThemeTrigger } from './toggle-theme-trigger'
 

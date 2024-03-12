@@ -1,9 +1,8 @@
-import React from 'react'
+import React, { ComponentProps } from 'react'
 
 import { cn } from '../../utils/cn'
 
-export interface ToggleThemeOptionProps
-  extends React.HTMLAttributes<HTMLDivElement> {}
+export interface ToggleThemeOptionProps extends ComponentProps<'div'> {}
 
 const ToggleThemeOption = React.forwardRef<
   HTMLDivElement,

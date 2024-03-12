@@ -5,7 +5,11 @@ const TooltipTrigger: React.FC<TooltipTriggerProps> = ({
   children,
   ...props
 }: TooltipTriggerProps) => {
-  return <Tooltip.Trigger {...props}>{children}</Tooltip.Trigger>
+  return (
+    <Tooltip.Trigger asChild {...props}>
+      {children}
+    </Tooltip.Trigger>
+  )
 }
 
 export { TooltipTrigger }

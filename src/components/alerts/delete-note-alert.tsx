@@ -4,19 +4,19 @@ import { toast } from 'sonner'
 
 import { useNotesStore } from '../../store/use-notes-store'
 import { cn } from '../../utils/cn'
-import { Button } from '../button'
-import { Alert } from './alert'
+import { Alert } from '../ui/alert'
+import { Button } from '../ui/button'
 
-type DeleteNoteCardAlertProps = AlertDialogProps &
+type DeleteNoteAlertProps = AlertDialogProps &
   PropsWithChildren & {
     noteId: string
   }
 
-const DeleteNoteCardAlert: React.FC<DeleteNoteCardAlertProps> = ({
+const DeleteNoteAlert: React.FC<DeleteNoteAlertProps> = ({
   noteId,
   children,
   ...props
-}: DeleteNoteCardAlertProps) => {
+}: DeleteNoteAlertProps) => {
   const { onDeleteNote } = useNotesStore()
 
   const handleDeleteNote = () => {
@@ -26,7 +26,7 @@ const DeleteNoteCardAlert: React.FC<DeleteNoteCardAlertProps> = ({
 
   return (
     <Alert.Root {...props}>
-      {children && <Alert.Trigger>{children}</Alert.Trigger>}
+      {children && <Alert.Trigger asChild>{children}</Alert.Trigger>}
       <Alert.Content className="p-5">
         <Alert.Title className="text-lg font-medium text-foreground">
           Você tem certeza absoluta?
@@ -61,4 +61,4 @@ const DeleteNoteCardAlert: React.FC<DeleteNoteCardAlertProps> = ({
   )
 }
 
-export { DeleteNoteCardAlert }
+export { DeleteNoteAlert }
