@@ -58,7 +58,7 @@ const PreviewNoteDialog: React.FC<PreviewNoteDialogProps> = ({
 
   return (
     <Dialog.Root {...props}>
-      <Dialog.Content>
+      <Dialog.Content className="z-0">
         <div
           data-color={currentNoteThemeColor}
           className={cn(
