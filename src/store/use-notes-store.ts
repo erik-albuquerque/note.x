@@ -21,6 +21,7 @@ const useNotesStore = create<NotesState>((set) => ({
         title,
         content,
         theme: {
+          color: 'default',
           font: 'default'
         }
       }
