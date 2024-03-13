@@ -18,8 +18,7 @@ const Infos: React.FC<Infos> = ({
   className = undefined,
   ...props
 }: Infos) => {
-  const { theme, systemTheme } = useTheme()
-  const isDarkTheme = theme === 'dark' || systemTheme === 'dark'
+  const { isDarkTheme } = useTheme()
 
   const currentNoteThemeColor = currentNote.theme?.color
   const totalCharactersInNote = currentNote.content.length

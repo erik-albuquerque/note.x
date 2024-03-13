@@ -8,8 +8,7 @@ const ToggleThemeTrigger = React.forwardRef<
   HTMLDivElement,
   ComponentProps<'div'>
 >(({ className = undefined, ...props }, ref) => {
-  const { theme, systemTheme } = useTheme()
-  const isDarkTheme = theme === 'dark' || systemTheme === 'dark'
+  const { isDarkTheme } = useTheme()
 
   return (
     <div

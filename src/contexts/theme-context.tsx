@@ -11,13 +11,13 @@ type ThemeProviderProps = {
 
 type ThemeProviderState = {
   theme: Theme
-  systemTheme: SystemTheme
+  isDarkTheme: boolean
   setTheme: (theme: Theme) => void
 }
 
 const initialState: ThemeProviderState = {
   theme: 'system',
-  systemTheme: null,
+  isDarkTheme: false,
   setTheme: () => null
 }
 
@@ -64,7 +64,7 @@ const ThemeProvider = ({
 
   const value = {
     theme,
-    systemTheme,
+    isDarkTheme: theme === 'dark' || systemTheme === 'dark',
     setTheme: onThemeChanged
   }
 
