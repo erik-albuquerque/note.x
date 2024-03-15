@@ -184,7 +184,7 @@ const SaveNoteForm: React.FC = () => {
             'w-full py-4 outline-none',
             'hover:bg-primary-foreground',
             'text-center text-base font-medium md:text-sm',
-            'bg-primary text-violet-950 transition-colors'
+            'bg-primary text-cyan-950 transition-colors'
           )}
         >
           Salvar nota
