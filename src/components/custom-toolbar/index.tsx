@@ -8,7 +8,7 @@ import { DeleteNoteAlert } from '../alerts/delete-note-alert'
 import { Toolbar } from '../ui/toolbar'
 import { Tooltip } from '../ui/tooltip'
 import { FactoryFonts } from './fonts'
-import { Infos } from './infos'
+import { Details } from './details'
 import { FactoryPalette } from './palette'
 
 type CustomToolbarProps = {
@@ -33,7 +33,7 @@ const CustomToolbar: React.FC<CustomToolbarProps> = ({
   const handleShowToolbar = () => setIsToolbarViewOpen(!isToolbarViewOpen)
 
   useEffect(() => {
-    if (open || !isToolbarViewOpen) return
+    if (open === true || isToolbarViewOpen === false) return
 
     setIsToolbarViewOpen(false)
   }, [isToolbarViewOpen, open])
@@ -57,7 +57,7 @@ const CustomToolbar: React.FC<CustomToolbarProps> = ({
               </Toolbar.Button>
             </Tooltip.Trigger>
 
-            <Tooltip.Content>Edit</Tooltip.Content>
+            <Tooltip.Content>Customize</Tooltip.Content>
           </Tooltip.Root>
 
           <Tooltip.Root>
@@ -81,7 +81,11 @@ const CustomToolbar: React.FC<CustomToolbarProps> = ({
 
           <Tooltip.Root>
             <Tooltip.Trigger>
-              <Toolbar.Button className="cursor-default hover:bg-inherit">
+              <Toolbar.Button
+                className={cn('cursor-help', {
+                  'hover:bg-muted-foreground/25': currentNoteThemeColor
+                })}
+              >
                 <Lucide.Info
                   className={cn('size-4 text-foreground', {
                     'text-zinc-950 dark:text-foreground': currentNoteThemeColor
@@ -91,7 +95,7 @@ const CustomToolbar: React.FC<CustomToolbarProps> = ({
             </Tooltip.Trigger>
 
             <Tooltip.Content>
-              <Infos currentNote={currentNote} />
+              <Details currentNote={currentNote} />
             </Tooltip.Content>
           </Tooltip.Root>
 
@@ -107,7 +111,7 @@ const CustomToolbar: React.FC<CustomToolbarProps> = ({
             )}
           >
             <span className="mb-3 text-sm font-medium text-foreground">
-              Edit
+              Customize
             </span>
 
             <span className="mb-3 text-xs text-muted-foreground">Colors</span>
@@ -120,6 +124,7 @@ const CustomToolbar: React.FC<CustomToolbarProps> = ({
               Fonts
             </span>
 
+            {/* TODO: Add custom font */}
             <FactoryFonts currentNote={currentNote} />
 
             <span className="mb-3 mt-5 text-xs text-muted-foreground">
@@ -141,7 +146,7 @@ const CustomToolbar: React.FC<CustomToolbarProps> = ({
         </Toolbar.Content>
       </Toolbar.Root>
 
-      {isDeleteNoteAlertOpen && (
+      {isDeleteNoteAlertOpen === true && (
         <DeleteNoteAlert
           noteId={currentNote.id}
           open={isDeleteNoteAlertOpen}

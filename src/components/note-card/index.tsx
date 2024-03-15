@@ -14,6 +14,7 @@ import {
 import { themeFontVariants } from '../../utils/variants/theme-font-variants'
 import { CustomToolbar } from '../custom-toolbar'
 import { PreviewNoteDialog } from '../dialogs/preview-note-dialog'
+import { MarkdownPreview } from '../markdown/markdown-preview'
 import { useHover } from './hooks/use-hover'
 
 /*
@@ -119,18 +120,18 @@ const NoteCard = React.memo(
           </span>
 
           <div className="flex flex-col gap-2 transition-colors">
-            <div
+            <MarkdownPreview
+              source={currentNote.content}
               className={cn(
+                'bg-transparent',
                 'line-clamp-[13] h-full md:line-clamp-[20]',
-                'text-wrap text-base text-foreground md:text-sm',
+                'text-wrap text-base text-background md:text-sm',
                 {
                   'text-zinc-950 dark:text-foreground': currentNoteThemeColor
                 },
                 themeFontClassName
               )}
-            >
-              {currentNote.content}
-            </div>
+            />
 
             <span
               className={cn(

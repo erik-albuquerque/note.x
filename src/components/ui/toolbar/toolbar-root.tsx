@@ -14,7 +14,7 @@ const ToolbarRoot: React.FC<ToolbarRootProps> = ({
 }: ToolbarRootProps) => {
   return (
     <div className={cn('relative mb-2 h-7 w-full', className)} {...props}>
-      {open && children}
+      {open === true && children}
     </div>
   )
 }

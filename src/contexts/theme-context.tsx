@@ -48,10 +48,10 @@ const ThemeProvider = ({
     setSystemTheme(null)
 
     if (theme === 'system') {
-      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)')
-        .matches
-        ? 'dark'
-        : 'light'
+      const systemTheme =
+        window.matchMedia('(prefers-color-scheme: dark)').matches === true
+          ? 'dark'
+          : 'light'
 
       setSystemTheme(systemTheme)
 

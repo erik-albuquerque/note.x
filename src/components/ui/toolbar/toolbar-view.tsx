@@ -12,7 +12,7 @@ const ToolbarView: React.FC<ToolbarViewProps> = ({
   className = undefined,
   ...props
 }: ToolbarViewProps) => {
-  if (!open) {
+  if (open === false) {
     return
   }
 

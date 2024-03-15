@@ -5,6 +5,9 @@ import { toast } from 'sonner'
 import { useSpeechRecognition } from '../../hooks/use-speech-recognition'
 import { useNotesStore } from '../../store/use-notes-store'
 import { cn } from '../../utils/cn'
+import { isEmptyString } from '../../utils/string/is-empty-string'
+import { MarkdownEditor } from '../markdown/markdown-editor'
+import { markdownDefaultTemplate } from '../markdown/markdown-editor/markdown-templates'
 import { Button } from '../ui/button'
 
 const SaveNoteForm: React.FC = () => {
@@ -20,15 +23,8 @@ const SaveNoteForm: React.FC = () => {
     setShouldShowOnboarding(!shouldShowOnboarding)
   }
 
-  const handleContentChanged = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    const value = event.target.value
-
+  const handleContentChanged = (value: string) => {
     setContent(value)
-
-    if (value === '') {
-      setTitle('')
-      setShouldShowOnboarding(true)
-    }
   }
 
   const handleTitleChanged = (event: ChangeEvent<HTMLInputElement>) => {
@@ -85,11 +81,17 @@ const SaveNoteForm: React.FC = () => {
     setContent(speechText)
   }, [speechText])
 
+  useEffect(() => {
+    if (isEmptyString(content) === false) return
+    setContent(markdownDefaultTemplate)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <form className="flex flex-1 flex-col">
       <div className="flex flex-1 flex-col gap-3 p-5">
         <div className="flex items-center gap-2">
-          {!shouldShowOnboarding && (
+          {shouldShowOnboarding === false && (
             <Button type="button" onClick={handleGoBack}>
               <Lucide.ChevronLeft className="size-6 text-foreground hover:text-muted-foreground" />
             </Button>
@@ -99,7 +101,7 @@ const SaveNoteForm: React.FC = () => {
           </span>
         </div>
 
-        {shouldShowOnboarding ? (
+        {shouldShowOnboarding === true ? (
           <p className="text-base leading-6 text-muted-foreground md:text-sm">
             Comece{' '}
             <Button
@@ -128,7 +130,7 @@ const SaveNoteForm: React.FC = () => {
             .
           </p>
         ) : (
-          <div className="mt-5 flex h-full flex-col gap-5">
+          <div className="mt-5 flex flex-col gap-5">
             <input
               type="text"
               placeholder="Título"
@@ -136,23 +138,26 @@ const SaveNoteForm: React.FC = () => {
               value={title}
               onChange={handleTitleChanged}
             />
-            <textarea
-              autoFocus
-              className={cn(
-                'bg-transparent',
-                'flex-1',
-                'resize-none outline-none',
-                'text-base leading-6 text-foreground placeholder:text-base md:text-sm'
-              )}
-              placeholder="Comece a escrever/gravar, arraste arquivos ou inicie a partir de um template"
-              onChange={handleContentChanged}
-              value={content}
-            />
+
+            <MarkdownEditor.Root>
+              <MarkdownEditor.Label className="text-base text-foreground">
+                Content
+              </MarkdownEditor.Label>
+              <MarkdownEditor.Editor
+                autoFocus
+                height={636}
+                onChange={(value) => handleContentChanged(value ?? '')}
+                value={content}
+                className={cn(
+                  'flex-1 text-base leading-6 text-foreground md:text-[15px]'
+                )}
+              />
+            </MarkdownEditor.Root>
           </div>
         )}
       </div>
 
-      {isRecording ? (
+      {isRecording === true ? (
         <Button
           type="button"
           onClick={handleStopRecording}

@@ -11,7 +11,7 @@ const NewNoteCardDialog: React.FC<NewNoteCardDialogProps> = ({
   return (
     <Dialog.Root>
       <Dialog.Trigger>{children}</Dialog.Trigger>
-      <Dialog.Content>
+      <Dialog.Content className="md:max-w-4xl">
         <SaveNoteForm />
       </Dialog.Content>
     </Dialog.Root>

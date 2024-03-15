@@ -29,13 +29,15 @@
 - [ ] Archive notes
 - [ ] Debounce to the note search input
 - [ ] Advanced search (filters: query, color, created at, etc)
-- [ ] Markdown support
+- [x] Markdown support
+- [ ] Add pagination (max 15, 5 per page)
 - [ ] Attach file support
   - [ ] drag and drop
 - [ ] Dynamic favicon (Dark/Light)
 - [x] Custom note support (Color, Font, etc)
 - [x] Masonry in the list of notes
 - [x] Add note title
+- [ ] Add audio support
 - [ ] Idiomas (pt-br, us, es)
 - [ ] Trash notes
 - [ ] Link preview support

@@ -83,10 +83,10 @@ const Color: React.FC<ColorProps> = ({
             'relative',
             'rounded-full',
             {
-              'p-1': isDefault
+              'p-1': isDefault === true
             },
             {
-              'size-6': !isDefault
+              'size-6': isDefault === false
             },
             'ring-2 ring-transparent',
             'transition-colors hover:ring-foreground',
@@ -96,7 +96,7 @@ const Color: React.FC<ColorProps> = ({
           )}
           {...props}
         >
-          {isActive && (
+          {isActive === true && (
             <Lucide.Check
               className={cn(
                 'absolute -right-1.5 -top-1.5',
@@ -106,7 +106,7 @@ const Color: React.FC<ColorProps> = ({
             />
           )}
 
-          {isDefault && (
+          {isDefault === true && (
             <Lucide.CircleOffIcon className="size-5 text-foreground" />
           )}
         </Button>

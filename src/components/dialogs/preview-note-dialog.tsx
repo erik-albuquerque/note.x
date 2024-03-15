@@ -10,6 +10,7 @@ import {
 } from '../../utils/variants/theme-background-color-variants'
 import { themeFontVariants } from '../../utils/variants/theme-font-variants'
 import { DeleteNoteAlert } from '../alerts/delete-note-alert'
+import { MarkdownPreview } from '../markdown/markdown-preview'
 import { Button } from '../ui/button'
 import { Dialog } from '../ui/dialog'
 
@@ -54,11 +55,13 @@ const PreviewNoteDialog: React.FC<PreviewNoteDialogProps> = ({
 
   const currentNoteThemeColor = currentNote.theme?.color
 
-  const fontClassName = themeFontVariants({ theme: currentNote.theme?.font })
+  const themeFontClassName = themeFontVariants({
+    theme: currentNote.theme?.font
+  })
 
   return (
     <Dialog.Root {...props}>
-      <Dialog.Content className="z-0">
+      <Dialog.Content className="z-0 md:max-w-3xl">
         <div
           data-color={currentNoteThemeColor}
           className={cn(
@@ -75,7 +78,7 @@ const PreviewNoteDialog: React.FC<PreviewNoteDialogProps> = ({
                 {
                   'text-zinc-950 dark:text-foreground': currentNoteThemeColor
                 },
-                fontClassName
+                themeFontClassName
               )}
             >
               {currentNote.title}
@@ -87,7 +90,7 @@ const PreviewNoteDialog: React.FC<PreviewNoteDialogProps> = ({
                 {
                   'text-zinc-950 dark:text-foreground': currentNoteThemeColor
                 },
-                fontClassName
+                themeFontClassName
               )}
             >
               {formattedAlternativeDate} | {totalWordsInNote}{' '}
@@ -97,15 +100,15 @@ const PreviewNoteDialog: React.FC<PreviewNoteDialogProps> = ({
             </span>
           </div>
 
-          <p
+          <MarkdownPreview
+            source={currentNote.content}
             className={cn(
+              'bg-transparent',
               'text-base leading-6',
               'text-foreground',
-              fontClassName
+              themeFontClassName
             )}
-          >
-            {currentNote.content}
-          </p>
+          />
         </div>
 
         <DeleteNoteAlert noteId={currentNote.id}>

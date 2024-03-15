@@ -26,7 +26,7 @@ const ToggleThemeTrigger = React.forwardRef<
       ref={ref}
       {...props}
     >
-      {isDarkTheme ? (
+      {isDarkTheme === true ? (
         <Lucide.MoonStar className="size-5" />
       ) : (
         <Lucide.Sun className="size-5 text-foreground" />

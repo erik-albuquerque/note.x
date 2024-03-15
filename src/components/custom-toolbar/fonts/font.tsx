@@ -71,7 +71,7 @@ const Font: React.FC<FontProps> = ({
       {...props}
     >
       <>
-        {isDefault ? null : (
+        {isDefault === true ? null : (
           <span className={cn('text-base text-foreground', themeFontClassName)}>
             Ag
           </span>
@@ -81,7 +81,7 @@ const Font: React.FC<FontProps> = ({
           className={cn(
             'text-wrap text-sm text-muted-foreground',
             {
-              'text-foreground': isDefault || isActive
+              'text-foreground': isDefault === true || isActive === true
             },
             themeFontClassName
           )}
@@ -89,7 +89,7 @@ const Font: React.FC<FontProps> = ({
           {fontName}
         </span>
 
-        {isActive && (
+        {isActive === true && (
           <div
             className={cn(
               'absolute -right-1.5 -top-1.5',
