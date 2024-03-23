@@ -10,7 +10,13 @@ import { MarkdownEditor } from '../markdown/markdown-editor'
 import { markdownDefaultTemplate } from '../markdown/markdown-editor/markdown-templates'
 import { Button } from '../ui/button'
 
-const SaveNoteForm: React.FC = () => {
+type SaveNoteFormProps = {
+  onCloseModal: () => void
+}
+
+const SaveNoteForm: React.FC<SaveNoteFormProps> = ({
+  onCloseModal
+}: SaveNoteFormProps) => {
   const { onSaveNote } = useNotesStore()
   const { speechText, startRecording, stopRecording, isRecording, error } =
     useSpeechRecognition()
@@ -77,6 +83,16 @@ const SaveNoteForm: React.FC = () => {
     setShouldShowOnboarding(true)
   }
 
+  const handleOnCloseModal = () => {
+    if (isRecording) {
+      stopRecording()
+    }
+
+    resetFields()
+
+    onCloseModal()
+  }
+
   useEffect(() => {
     setContent(speechText)
   }, [speechText])
@@ -88,8 +104,8 @@ const SaveNoteForm: React.FC = () => {
   }, [])
 
   return (
-    <form className="flex flex-1 flex-col">
-      <div className="flex flex-1 flex-col gap-3 p-5">
+    <form className="flex flex-1 flex-col p-5">
+      <div className="flex flex-1 flex-col gap-3">
         <div className="flex items-center gap-2">
           {shouldShowOnboarding === false && (
             <Button type="button" onClick={handleGoBack}>
@@ -102,33 +118,49 @@ const SaveNoteForm: React.FC = () => {
         </div>
 
         {shouldShowOnboarding === true ? (
-          <p className="text-base leading-6 text-muted-foreground md:text-sm">
-            Comece{' '}
-            <Button
-              type="button"
-              onClick={handleStartRecording}
-              className={cn(
-                'font-medium',
-                'text-violet-950 dark:text-primary',
-                'hover:underline'
-              )}
-            >
-              gravando uma nota
-            </Button>{' '}
-            em áudio ou se preferir{' '}
-            <Button
-              type="button"
-              onClick={handleStartEditor}
-              className={cn(
-                'font-medium',
-                'text-violet-950 dark:text-primary',
-                'hover:underline'
-              )}
-            >
-              utilize apenas texto
-            </Button>
-            .
-          </p>
+          <>
+            <p className="text-base leading-6 text-muted-foreground md:text-sm">
+              Comece{' '}
+              <Button
+                type="button"
+                onClick={handleStartRecording}
+                className={cn(
+                  'font-medium',
+                  'text-cyan-700 dark:text-primary',
+                  'hover:underline'
+                )}
+              >
+                gravando uma nota
+              </Button>{' '}
+              em áudio ou se preferir{' '}
+              <Button
+                type="button"
+                onClick={handleStartEditor}
+                className={cn(
+                  'font-medium',
+                  'text-cyan-700 dark:text-primary',
+                  'hover:underline'
+                )}
+              >
+                utilize apenas texto
+              </Button>
+              .
+            </p>
+
+            <div className="mt-4 flex max-w-md flex-row gap-3 rounded-lg border border-border bg-background p-4">
+              <div>
+                <Lucide.AlertCircle className="size-5 text-foreground md:size-4" />
+              </div>
+              <div className="flex flex-col gap-1">
+                <strong className="text-lg font-medium leading-none tracking-tight text-foreground md:text-base">
+                  Warning
+                </strong>
+                <span className="text-base text-foreground md:text-sm">
+                  {`If you're about to make an audio annotation, be aware that audio capture is still in beta.`}
+                </span>
+              </div>
+            </div>
+          </>
         ) : (
           <div className="mt-5 flex flex-col gap-5">
             <input
@@ -145,7 +177,7 @@ const SaveNoteForm: React.FC = () => {
               </MarkdownEditor.Label>
               <MarkdownEditor.Editor
                 autoFocus
-                height={636}
+                height={620}
                 onChange={(value) => handleContentChanged(value ?? '')}
                 value={content}
                 className={cn(
@@ -157,39 +189,55 @@ const SaveNoteForm: React.FC = () => {
         )}
       </div>
 
-      {isRecording === true ? (
+      <div className="flex flex-row gap-4 self-end">
         <Button
           type="button"
-          onClick={handleStopRecording}
           className={cn(
-            'py-4 outline-none',
-            'flex w-full items-center justify-center gap-2',
-            'text-center text-base font-medium text-white md:text-sm',
-            'bg-zinc-900 transition-colors hover:bg-zinc-900/90 dark:hover:bg-zinc-900/80'
+            'px-6 py-2',
+            'border border-border ',
+            'text-center text-base font-medium text-foreground md:text-sm',
+            'rounded-lg outline-none',
+            'transition-colors hover:bg-muted/50'
           )}
+          onClick={handleOnCloseModal}
         >
-          <div
+          Cancel
+        </Button>
+
+        {isRecording === true ? (
+          <Button
+            type="button"
+            onClick={handleStopRecording}
             className={cn(
-              'size-[10px] rounded-full',
-              'animate-pulse bg-destructive-foreground'
+              'rounded-lg px-6 py-2 outline-none',
+              'flex w-full items-center justify-center gap-2',
+              'text-center text-sm font-medium text-white md:text-xs',
+              'bg-zinc-900 transition-colors hover:bg-zinc-900/90 dark:hover:bg-zinc-900/80'
             )}
-          />
-          Gravando! (clique p/ interromper)
-        </Button>
-      ) : (
-        <Button
-          type="button"
-          onClick={handleSaveNote}
-          className={cn(
-            'w-full py-4 outline-none',
-            'hover:bg-primary-foreground',
-            'text-center text-base font-medium md:text-sm',
-            'bg-primary text-cyan-950 transition-colors'
-          )}
-        >
-          Salvar nota
-        </Button>
-      )}
+          >
+            <div
+              className={cn(
+                'size-[10px] rounded-full',
+                'animate-pulse bg-destructive-foreground'
+              )}
+            />
+            Gravando! (clique p/ interromper)
+          </Button>
+        ) : (
+          <Button
+            type="button"
+            onClick={handleSaveNote}
+            className={cn(
+              'rounded-lg px-6 py-2 outline-none',
+              'hover:bg-primary-foreground',
+              'text-center text-base font-medium md:text-sm',
+              'bg-primary text-background transition-colors'
+            )}
+          >
+            Save
+          </Button>
+        )}
+      </div>
     </form>
   )
 }

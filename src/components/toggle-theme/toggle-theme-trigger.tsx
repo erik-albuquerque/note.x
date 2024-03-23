@@ -19,7 +19,7 @@ const ToggleThemeTrigger = React.forwardRef<
         'inline-flex items-center justify-center',
         'disabled:pointer-events-none disabled:opacity-50',
         'transition-colors',
-        'hover:bg-muted/50 hover:text-accent-foreground',
+        'hover:bg-border/70 hover:text-accent-foreground',
         'focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring',
         className
       )}

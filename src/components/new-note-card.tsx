@@ -8,9 +8,9 @@ const NewNoteCard = React.forwardRef<HTMLDivElement, ComponentProps<'div'>>(
     return (
       <div
         className={cn(
-          'flex h-full max-w-60 flex-col gap-3',
+          'flex max-w-60 flex-col gap-3',
           'text-left',
-          'cursor-pointer bg-muted p-4 outline-none',
+          'cursor-pointer bg-muted/50 p-4 outline-none',
           'group relative overflow-hidden rounded-lg border-2 border-border',
           'transition-colors hover:border-primary focus-visible:border-primary',
           className
@@ -30,7 +30,6 @@ const NewNoteCard = React.forwardRef<HTMLDivElement, ComponentProps<'div'>>(
           className={cn(
             'p-1.5',
             'absolute right-0 top-0',
-            'dark:bg-zinc-900',
             'bg-border',
             'text-muted-foreground',
             'transition-colors',
